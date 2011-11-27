@@ -1,0 +1,7 @@
+jLabel1.text=Collection name:
+addModelButton.text=Add model
+removeButton.text=Remove
+collectionNameField.text=COLLECTION NAME
+saveButton.text=Save collection
+cancelButton.text=Cancel
+editDescriptionButton.text=Edit collection info

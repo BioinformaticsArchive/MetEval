@@ -1,0 +1,107 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package meteval.SurreyWrapper;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import meteval.types.Medium;
+import meteval.types.MetModel;
+import meteval.types.Objective;
+
+/**
+ *
+ * @author gieku
+ */
+ public class SurreyFbaWrapper {
+    public SurreyFbaWrapper(File sfbaDir){
+        this.sfbaDir = sfbaDir;
+    }
+    private File sfbaDir;
+    public synchronized FbaResult fba(MetModel model, Objective obj, Medium medium) {
+            
+                File input =  model.getAssociatedSurreyFormat();
+                File externals = model.getAssociatedExternalsFile();
+                String command = String.format("-i %s -o %s -b %s -f %s", passablePath(input),obj.getReaction(),passablePath(externals),"results.txt");
+                executeCommand(command);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SurreyFbaWrapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                ResultFileReader reader = ResultFileReader.getInstance(new File("/home/gieku/NetBeansProjects/MetEval/results.txt"));
+                Result result = reader.getResult();
+        return (FbaResult) result;
+    }
+    public TradeoffResult tradeoff(MetModel model, Objective firstObj, Objective secondObj, Medium medium){
+        File input = model.getAssociatedSurreyFormat();
+        File externals = model.getAssociatedExternalsFile();
+        String command = String.format("-i %s -o %s -b %s -f %s -a %s -p troff", passablePath(input),firstObj.getReaction(),passablePath(externals),"/home/gieku/NetBeansProjects/MetEval/results.txt",secondObj.getReaction());
+        executeCommand(command);
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SurreyFbaWrapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultFileReader reader = ResultFileReader.getInstance(new File("results.txt"));
+        Result result = reader.getResult();
+        return (TradeoffResult) result;
+        
+    }
+    private String passablePath(File file){
+        String passablePath = String.format("'%s'", file.getAbsolutePath());
+        return passablePath;
+    }
+    
+    
+    private LinkedList<String> sfbaOutput = new LinkedList<String>();
+    private void executeCommand(String command){
+                command = String.format("%s %s","./sfba", command);
+        try {
+            redirectCommand(command);
+        } catch (IOException ex) {
+            Logger.getLogger(SurreyFbaWrapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void redirectCommand(String command) throws IOException{
+        //String extendedCommand = String.format("python %s/redirect.py %s", sfbaDir.getAbsolutePath(),command);
+        Runtime runtime = Runtime.getRuntime();
+        //runtime.exec(extendedCommand);
+        String[] commands = {"python","redirect.py" , command};
+        runtime.exec(commands,null,sfbaDir);
+    }
+
+    private double parseFbaResults() {
+        double result = -1;
+        
+        for(String line:this.sfbaOutput){
+            if(line.contains(";")){
+                line = line.replaceAll(";", "");
+                result = Double.parseDouble(line);
+            }
+            
+        }
+        return result;
+    }
+    private  class resultReaderThread extends Thread{
+        public resultReaderThread(File file){
+            instance = ResultFileReader.getInstance(file);
+        }
+        private ResultFileReader instance;
+        @Override
+        public void run(){
+            //this.wait(1000);
+           result = instance.getResult();
+        }
+        private Result result;
+        public Result getResult(){
+            return result;
+        }
+    }
+}

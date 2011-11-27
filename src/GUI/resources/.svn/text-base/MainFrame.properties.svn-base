@@ -1,0 +1,13 @@
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+
+openCollectionsFrame.Action.text=New collection
+openCollectionsFrame.Action.shortDescription=
+chooseCollectionToLoad.Action.text=Open collection
+chooseCollectionToLoad.Action.shortDescription=
+RunFBA.Action.text=FBA
+RunFBA.Action.shortDescription=Run Flux Balance Analysis on collection
+runTradeoff.Action.text=Run Tradeoff 
+runTradeoff.Action.shortDescription=Run tradeoff over given model
+plot.Action.text=Plot
+plot.Action.shortDescription=create and show plot

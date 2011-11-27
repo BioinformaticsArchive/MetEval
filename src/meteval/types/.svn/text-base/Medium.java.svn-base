@@ -1,0 +1,49 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package meteval.types;
+
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author gieku
+ */
+public class Medium {
+    @Override
+    public String toString(){
+        return name;
+    }
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public void addIngridient(String name,float quantity){
+        try{
+            if(quantity < 0 ){
+                throw new Exception("Ingridient quantity cannot be negative");
+            }
+            this.formulation.put(name, quantity);
+        }
+        catch(Exception ex){
+            Logger.getLogger(Medium.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
+    public HashMap<String,Float> getFormulation(){
+        return  (HashMap<String, Float>) this.formulation.clone();
+    }
+    private HashMap<String,Float> formulation = new HashMap<String,Float>();
+
+    public void removeIngridient(String selected) {
+        this.formulation.remove(selected);
+    }
+}
