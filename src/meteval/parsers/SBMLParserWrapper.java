@@ -96,6 +96,11 @@ import meteval.types.Reaction;
     private File parser;
 
     private void waitFor(File file) {
+         try {
+                Thread.sleep(3500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SBMLParserWrapper.class.getName()).log(Level.SEVERE, null, ex);
+            }
         while(!file.exists()){
             try {
                 Thread.sleep(100);
