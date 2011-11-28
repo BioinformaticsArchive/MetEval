@@ -112,10 +112,11 @@ import meteval.types.Reaction;
 //    }
     private void waitForResults(File resultFile) throws InterruptedException{
         Thread.sleep(250);
-        while(!resultFile.exists()){
+        for(int i = 0; i <12;i++){
             ResultFileReader reader = ResultFileReader.getInstance(resultFile);
-            if(reader.getResultType() == ResultFileType.MALFORMED)
+            if(reader.getResultType() == ResultFileType.MALFORMED){
             Thread.sleep(250);
+            }
             else break;
         }
     }
@@ -136,7 +137,7 @@ import meteval.types.Reaction;
        }
                 ResultFileReader reader = ResultFileReader.getInstance(resultFile);
                 Result result = reader.getResult();
-                if(resultFile == null || !resultFile.exists())JOptionPane.showMessageDialog(null, "No result file found in: "+ resultFile.getPath());
+                if(result == null|| reader.getResultType() == ResultFileReader.ResultFileType.MALFORMED )result = new FbaResult(0.0);
                 resultFile.delete();
         return (FbaResult) result;
     }
