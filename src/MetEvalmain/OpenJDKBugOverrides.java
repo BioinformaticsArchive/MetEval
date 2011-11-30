@@ -23,7 +23,7 @@ public class OpenJDKBugOverrides {
      path = cutBefore(path,"file:");
      path = cutAfter(path,".jar");
      path = cutAfter(path,"/");
-     
+     path = path.replaceAll("%20", " ");
      return new File(path);
  }
     private String cutBefore(String path,String token){
