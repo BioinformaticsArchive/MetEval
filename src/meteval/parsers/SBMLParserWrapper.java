@@ -77,7 +77,7 @@ import meteval.types.Reaction;
         //runtime.exec(extendedCommand);
         File currentDir = MetEvalmain.OpenJDKBugOverrides.getCurrentDir();
         String[] commands = {"python",currentDir.getAbsolutePath()+"/redirect.py" , command};
-        JOptionPane.showMessageDialog(null, commands);
+       // JOptionPane.showMessageDialog(null, commands);
         runtime.exec(commands,null,null);
     }
     private void execParser(File inputFile,File outputFile){

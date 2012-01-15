@@ -51,6 +51,7 @@ public class MainFrame extends javax.swing.JFrame {
     /** Creates new form MainFrame */
     public MainFrame(MetEvalApp app) {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.app = app;
     }
     private boolean showingResults = false;
@@ -94,6 +95,32 @@ private MetEvalApp app;
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -129,7 +156,6 @@ private MetEvalApp app;
         jMenu1.add(jMenuItem1);
 
         saveToCsvMenuItem.setAction(actionMap.get("saveResultsAsCSV")); // NOI18N
-        saveToCsvMenuItem.setEnabled(false);
         saveToCsvMenuItem.setName("saveToCsvMenuItem"); // NOI18N
         jMenu1.add(saveToCsvMenuItem);
 
@@ -148,12 +174,10 @@ private MetEvalApp app;
         jMenu1.add(jSeparator1);
 
         jMenuItem7.setAction(actionMap.get("runCollectionManager")); // NOI18N
-        jMenuItem7.setText("Organize collections");
         jMenuItem7.setName("jMenuItem7"); // NOI18N
         jMenu1.add(jMenuItem7);
 
         jMenuItem8.setAction(actionMap.get("manageMedia")); // NOI18N
-        jMenuItem8.setText("Organize media");
         jMenuItem8.setName("jMenuItem8"); // NOI18N
         jMenu1.add(jMenuItem8);
 
@@ -175,12 +199,10 @@ private MetEvalApp app;
         jMenu3.setName("jMenu3"); // NOI18N
 
         tradeoffMenuItem.setAction(actionMap.get("runTradeoff")); // NOI18N
-        tradeoffMenuItem.setEnabled(false);
         tradeoffMenuItem.setName("tradeoffMenuItem"); // NOI18N
         jMenu3.add(tradeoffMenuItem);
 
         fbaMenuItem.setAction(actionMap.get("RunFBA")); // NOI18N
-        fbaMenuItem.setEnabled(false);
         fbaMenuItem.setName("fbaMenuItem"); // NOI18N
         jMenu3.add(fbaMenuItem);
 
